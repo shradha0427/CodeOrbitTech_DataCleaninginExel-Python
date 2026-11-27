@@ -1,0 +1,46 @@
+
+import pandas as pd
+
+# Step 1: Create Sample Dataset
+data = {
+    'Name': ['Rahul', 'Priya', 'Amit', 'Neha', 'Rahul', 'Karan'],
+    'Age': [22, 25, None, 23, 22, None],
+    'City': ['Delhi', 'Mumbai', 'Delhi', 'Pune', 'Delhi', 'Mumbai'],
+    'Salary': [25000, 30000, 28000, None, 25000, 35000]
+}
+
+df = pd.DataFrame(data)
+
+print("Original Dataset:")
+print(df)
+
+# Step 2: Check Missing Values
+print("\nMissing Values:")
+print(df.isnull().sum())
+
+# Step 3: Remove Duplicate Records
+df = df.drop_duplicates()
+
+# Step 4: Handle Missing Values
+df['Age'] = df['Age'].fillna(df['Age'].mean())
+df['Salary'] = df['Salary'].fillna(df['Salary'].mean())
+
+# Step 5: Format Data
+df['Name'] = df['Name'].str.strip().str.title()
+df['City'] = df['City'].str.strip().str.title()
+
+df['Age'] = df['Age'].round().astype(int)
+df['Salary'] = df['Salary'].round(2)
+
+# Step 6: Display Cleaned Dataset
+print("\nCleaned Dataset:")
+print(df)
+
+# Step 7: Check Final Missing Values
+print("\nMissing Values After Cleaning:")
+print(df.isnull().sum())
+
+# Step 8: Save Cleaned Dataset
+df.to_csv('cleaned_dataset.csv', index=False)
+
+print("\nCleaned Dataset Saved Successfully!")
